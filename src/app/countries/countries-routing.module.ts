@@ -5,7 +5,11 @@ import { SelectorPageComponent } from './pages/selector-page/selector-page.compo
 
 const routes: Routes = [
   {
-    path: '', component: SelectorPageComponent
+    path: '',
+    children: [
+      { path: 'selector', component: SelectorPageComponent },
+      { path: '**', redirectTo: 'selector' },
+    ]
   }
 ];
 
