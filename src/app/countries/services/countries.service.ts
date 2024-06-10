@@ -24,7 +24,7 @@ export class CountriesService {
     if( !region ) return of( [] );
 
     const url: string = `${ this.baseUrl }/region/${ region }?fields=cca3,name,borders`;
-
+    console.log( url );
     return this.http.get<Country[]>(url)
       .pipe(
         map( countries => countries.map( country => ({
@@ -33,6 +33,18 @@ export class CountriesService {
           borders: country.borders ?? []
         })))
       );
+  }
+  getCountryByAlphaCode( alphaCode: string ): Observable <SmallCountry>{
+    const url = `${ this.baseUrl }/alpha/${ alphaCode }?fields=cca3,name,borders`;
+    console.log( url );
+        return this.http.get<Country>( url )
+          .pipe(
+            map( country => ({
+              name: country.name.common,
+              cca3: country.cca3,
+              borders: country.borders ?? [],
+            }))
+          );
   }
 
 }
